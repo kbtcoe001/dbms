@@ -1,0 +1,20 @@
+ create table BookBorrower(RollNo int primary key,Name varchar(10),date_issue date,BookName varchar(20),status varchar(2));
+ insert into BookBorrower values(1,'Abhay','15-8-2023','c++','I');
+ insert into BookBorrower values(2,'Om','15-07-2023','java','I');
+ create table Student_Fine(Roll int ,dates date,amount int);
+
+ @bookborrower.sql
+Enter value for roll_no: 1
+old   2: rno BookBorrower.RollNo%type:=&Roll_No;
+new   2: rno BookBorrower.RollNo%type:=1;
+Enter value for book_name: c++
+old   3: bname BookBorrower.BookName%type:='&Book_Name';
+new   3: bname BookBorrower.BookName%type:='c++';
+
+PL/SQL procedure successfully completed.
+
+SQL> select *from Student_fine;
+
+      ROLL DATES	AMOUNT
+---------- -------- ----------
+	 1 25-08-23	     0

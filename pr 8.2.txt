@@ -1,0 +1,48 @@
+ SQL> create role myroles;
+ SQL> grant create session to myroles;
+ SQL> create user jayesh identified by 1234;    
+ SQL> grant myroles to jayesh;
+ SQL> grant connect,resource,dba to jayesh;
+ SQL> grant all privileges to jayesh;
+ SQL> conn jayesh;
+ Enter password: 1234
+
+
+SQL> create table lib(id int,bname varchar(10),status varchar(10));  
+SQL> create table lib_bkup(id int,bname varchar(10),status varchar(10));
+
+SQL> insert into lib values(1,'n','c');  
+
+1 row created.
+
+SQL> insert into lib values(2,'nd','c');
+
+1 row created.
+SQL> insert into lib values(3,'mvp','p');
+
+1 row created.
+@triggerdbms.sql
+
+****** SAVE SQL FILE WITH triggerdbms.sql  **********************
+
+
+SQL> update lib set id=4 where bname='n';
+
+1 row updated.
+
+SQL> select * from lib;
+
+	ID BNAME      STATUS
+---------- ---------- ----------
+	 4 n	      c
+	 2 nd	      c
+	 3 mvp	      p
+
+SQL> select *from lib_bkup;
+
+	ID BNAME      STATUS
+---------- ---------- ----------
+
+	 1 n	      c
+
+

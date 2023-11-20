@@ -1,0 +1,768 @@
+
+
+
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Oct 9 08:54:40 2017
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+Enter password: 
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+SQL> create table Product_Details(p_ID int, p_Name varchar(20),quantity int, price int);
+
+Table created.
+
+SQL> insert into Product_Details values(1,'Iron',7,3000);
+
+1 row created.
+
+SQL> insert into Product_Details values(2,'TV',5,60000);
+
+1 row created.
+
+SQL> insert into Product_Details values(3,'Laptop',6,32000);
+
+1 row created.
+
+SQL> insert into Product_Details values(4,'PC',10,50000);
+
+1 row created.
+
+SQL> insert into Product_Details values(5,'Heater',3,23000);
+
+1 row created.
+
+SQL> insert into Product_Details values(6,'Desk',5,8000);
+
+1 row created.
+
+SQL> insert into Product_Details values(7,'Chair',8,2500);
+
+1 row created.
+
+SQL> insert into Product_Details values(8,'Refrigerator',2,18000);
+
+1 row created.
+
+SQL> insert into Product_Details values(9,'Mixer',7,4500);
+
+1 row created.
+
+SQL> insert into Product_Details values(10,'Mobile',10,40000);
+
+1 row created.
+
+
+SQL> desc Product_Details;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ P_ID						    NUMBER(38)
+ P_NAME 					    VARCHAR2(20)
+ QUANTITY					    NUMBER(38)
+ PRICE						    NUMBER(38)
+
+
+SQL> select * from Product_Details;
+
+      P_ID P_NAME		  QUANTITY	PRICE
+---------- -------------------- ---------- ----------
+      1 Iron				 7	3000
+      2 TV		 5	60000
+      3 Laptop			 6	32000
+      4 PC				10	50000
+      5 Heater			 3	23000
+      6 Desk 			 5	 8000
+      7 Chair			 8	 2500
+      8 Refrigerator 		 2	18000
+      9 Mixer			 7	 4500
+      10 Mobile			10	40000
+
+10 rows selected.
+
+SQL>  create table Sales_Details1(s_No int, p_ID int,quantity int,price int,cust_Name varchar(20));
+
+Table created.
+
+SQL> insert into Sales_Details1 values(21,8,1,18000,'Tanmay');
+
+1 row created.
+
+SQL>  insert into Sales_Details1 values(22,1,3,180000,'Manvi');
+
+1 row created.
+
+SQL>  insert into Sales_Details1 values(23,5,2,46000,'Pratik');
+
+1 row created.
+
+SQL>  insert into Sales_Details1 values(24,10,8,320000,'Mayur');
+
+1 row created.
+
+SQL>  insert into Sales_Details1 values(25,7,5,12500,'Uday');
+
+1 row created.
+
+SQL>  insert into Sales_Details1 values(26,3,4,128000,'Jay');
+
+1 row created.
+
+SQL>  insert into Sales_Details1 values(27,2,5,150000,'Payal');
+
+1 row created.
+
+SQL> desc Sales_Details1;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ S_NO						    NUMBER(38)
+ P_ID						    NUMBER(38)
+ QUANTITY					    NUMBER(38)
+ PRICE						    NUMBER(38)
+ CUST_NAME					    VARCHAR2(20)
+
+SQL> select * from Sales_Details1;
+
+      S_NO	 P_ID	QUANTITY      PRICE CUST_NAME
+---------- ---------- ---------- ---------- --------------------
+	21	 8	       1      18000 Tanmay
+	22	 1	       3     180000 Manvi
+	23	 5	       2      46000 Pratik
+	24	 10	       8     320000 Mayur
+	25	 7	       5      12500 Uday
+	26	 3	       4     128000 Jay
+	27	 2	       5     150000 Payal
+
+7 rows selected.
+
+/* 1.Apply inner join on table that have matching values in Both the tables. */ 
+
+SQL> select Product_Details.p_ID,s_No,p_Name,    
+  2  Sales_Details1.quantity,Sales_Details1.price,cust_Name from Product_Details
+  3  INNER JOIN Sales_Details1 ON Product_Details.p_ID = Sales_Details1.p_ID;
+
+      P_ID	 S_NO P_NAME		     QUANTITY	   PRICE
+---------- ---------- -------------------- ---------- ----------
+CUST_NAME
+--------------------
+      1	   22 Iron			    3	  180000
+Manvi
+
+      2	   27 TV		    5	  150000
+Payal
+
+      3	   26 Laptop			    4	  128000
+Jay
+
+
+      P_ID	 S_NO P_NAME		     QUANTITY	   PRICE
+---------- ---------- -------------------- ---------- ----------
+CUST_NAME
+--------------------
+      5	   23 Heater			    2	   46000
+Pratik
+
+      7	   25 Chair			    5	   12500
+Uday
+
+      8	   21 Refrigerator		    1	   18000
+Tanmay
+
+
+      P_ID	 S_NO P_NAME		     QUANTITY	   PRICE
+---------- ---------- -------------------- ---------- ----------
+CUST_NAME
+--------------------
+      10	   24 Mobile			    8	  320000
+Mayur
+
+
+7 rows selected.
+
+/* 2.Apply Left Outer Join. */
+
+SQL> select * from Product_Details LEFT OUTER JOIN Sales_Details1 ON Product_Details.p_ID=Sales_Details1.p_ID ORDER BY Product_Details.p_ID;
+
+      P_ID P_NAME		  QUANTITY	PRICE	    S_NO       P_ID
+---------- -------------------- ---------- ---------- ---------- ----------
+  QUANTITY	PRICE CUST_NAME
+---------- ---------- --------------------
+      1 Iron				 7	3000	      22       1
+	 3     180000 Manvi
+
+      2 TV		 5	60000	      27       2
+	 5     150000 Payal
+
+      3 Laptop			 6	32000	      26       3
+	 4     128000 Jay
+
+
+      P_ID P_NAME		  QUANTITY	PRICE	    S_NO       P_ID
+---------- -------------------- ---------- ---------- ---------- ----------
+  QUANTITY	PRICE CUST_NAME
+---------- ---------- --------------------
+      4 PC				10	50000
+
+
+      5 Heater			 3	23000	      23       5
+	 2	46000 Pratik
+
+      6 Desk 			 5	 8000
+
+
+
+      P_ID P_NAME		  QUANTITY	PRICE	    S_NO       P_ID
+---------- -------------------- ---------- ---------- ---------- ----------
+  QUANTITY	PRICE CUST_NAME
+---------- ---------- --------------------
+      7 Chair			 8	 2500	      25       7
+	 5	12500 Uday
+
+      8 Refrigerator 		 2	18000	      21       8
+	 1	18000 Tanmay
+
+      9 Mixer			 7	 4500
+
+
+
+      P_ID P_NAME		  QUANTITY	PRICE	    S_NO       P_ID
+---------- -------------------- ---------- ---------- ---------- ----------
+  QUANTITY	PRICE CUST_NAME
+---------- ---------- --------------------
+      10 Mobile			10	40000	      24       10
+	 8     320000 Mayur
+
+
+10 rows selected.
+
+/* 3.Apply Right Outer join. */
+
+SQL> select * from Product_Details RIGHT OUTER JOIN Sales_Details1 ON Product_Details.p_ID=Sales_Details1.p_ID ORDER BY Product_Details.p_ID;
+
+      P_ID P_NAME		  QUANTITY	PRICE	    S_NO       P_ID
+---------- -------------------- ---------- ---------- ---------- ----------
+  QUANTITY	PRICE CUST_NAME
+---------- ---------- --------------------
+      1 Iron				 7	3000	      22       1
+	 3     180000 Manvi
+
+      2 TV		 5	60000	      27       2
+	 5     150000 Payal
+
+      3 Laptop			 6	32000	      26       3
+	 4     128000 Jay
+
+
+      P_ID P_NAME		  QUANTITY	PRICE	    S_NO       P_ID
+---------- -------------------- ---------- ---------- ---------- ----------
+  QUANTITY	PRICE CUST_NAME
+---------- ---------- --------------------
+      5 Heater			 3	23000	      23       5
+	 2	46000 Pratik
+
+      7 Chair			 8	 2500	      25       7
+	 5	12500 Uday
+
+      8 Refrigerator 		 2	18000	      21       8
+	 1	18000 Tanmay
+
+
+      P_ID P_NAME		  QUANTITY	PRICE	    S_NO       P_ID
+---------- -------------------- ---------- ---------- ---------- ----------
+  QUANTITY	PRICE CUST_NAME
+---------- ---------- --------------------
+      10 Mobile			10	40000	      24       10
+	 8     320000 Mayur
+
+
+7 rows selected.
+
+/* 4.Apply Full Outer Join. */
+
+SQL> select * from Product_Details FULL OUTER JOIN Sales_Details1 ON Product_Details.p_ID=Sales_Details1.p_ID ORDER BY Product_Details.p_ID;
+
+      P_ID P_NAME		  QUANTITY	PRICE	    S_NO       P_ID
+---------- -------------------- ---------- ---------- ---------- ----------
+  QUANTITY	PRICE CUST_NAME
+---------- ---------- --------------------
+      1 Iron				 7	3000	      22       1
+	 3     180000 Manvi
+
+      2 TV		 5	60000	      27       2
+	 5     150000 Payal
+
+      3 Laptop			 6	32000	      26       3
+	 4     128000 Jay
+
+
+      P_ID P_NAME		  QUANTITY	PRICE	    S_NO       P_ID
+---------- -------------------- ---------- ---------- ---------- ----------
+  QUANTITY	PRICE CUST_NAME
+---------- ---------- --------------------
+      4 PC				10	50000
+
+
+      5 Heater			 3	23000	      23       5
+	 2	46000 Pratik
+
+      6 Desk 			 5	 8000
+
+
+
+      P_ID P_NAME		  QUANTITY	PRICE	    S_NO       P_ID
+---------- -------------------- ---------- ---------- ---------- ----------
+  QUANTITY	PRICE CUST_NAME
+---------- ---------- --------------------
+      7 Chair			 8	 2500	      25       7
+	 5	12500 Uday
+
+      8 Refrigerator 		 2	18000	      21       8
+	 1	18000 Tanmay
+
+      9 Mixer			 7	 4500
+
+
+
+      P_ID P_NAME		  QUANTITY	PRICE	    S_NO       P_ID
+---------- -------------------- ---------- ---------- ---------- ----------
+  QUANTITY	PRICE CUST_NAME
+---------- ---------- --------------------
+      10 Mobile			10	40000	      24       10
+	 8     320000 Mayur
+
+
+10 rows selected.
+
+/* 5.List all Sold Products names. */
+
+SQL> SELECT DISTINCT p_Name AS "Sold Products" FROM Product_Details,Sales_Details1 WHERE Product_Details.p_ID=Sales_Details1.p_ID ORDER BY p_Name;
+
+Sold Products
+--------------------
+Chair
+Heater
+Laptop
+Mobile
+Refrigerator
+Iron
+TV
+
+7 rows selected.
+
+**********************************************************************************************************
+
+SQL> create table Project1(p_ID int,p_Name varchar(25),chief_architect varchar(20));
+
+Table created.
+
+SQL> insert into Project1 values(300,'Java','Mayuri');
+
+1 row created.
+
+SQL> insert into Project1 values(410,'VB','Manisha');
+
+1 row created.
+
+SQL> insert into Project1 values(214,'Database','Nikita');
+
+1 row created.
+
+SQL> insert into Project1 values(355,'Python','Kimaya');
+
+1 row created.
+
+SQL> insert into Project1 values(143,'C','Sayali');
+
+1 row created.
+
+SQL> select * from Project1;
+
+      P_ID P_NAME		     CHIEF_ARCHITECT
+---------- ------------------------- --------------------
+       300 Java 		     Mayuri
+       410 VB			     Manisha
+       214 Database		     Nikita
+       355 Python		     Kimaya
+       143 C			     Sayali
+
+
+SQL> create table Employee5(e_ID int,e_Name varchar(20));
+
+Table created.
+
+SQL> desc Employee5;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ E_ID						    NUMBER(38)
+ E_NAME 					    VARCHAR2(20)
+
+SQL> insert into Employee5 values(15,'Manoj');
+
+1 row created.
+
+SQL> insert into Employee5 values(13,'Pratik');
+
+1 row created.
+
+SQL> insert into Employee5 values(11,'Mayur');
+
+1 row created.
+
+SQL> insert into Employee5 values(9,'Chetan');
+
+1 row created.
+
+SQL> insert into Employee5 values(10,'Husain');
+
+1 row created.
+
+SQL> insert into Employee5 values(12,'Pranav');
+
+1 row created.
+
+SQL> insert into Employee5 values(14,'Prerna');
+
+1 row created.
+
+SQL> insert into Employee5 values(8,'Aniket');
+
+1 row created.
+
+SQL> insert into Employee5 values(1,'Asmita');
+
+1 row created.
+
+SQL> insert into Employee5 values(7,'Dhanu');
+
+1 row created.
+
+SQL> insert into Employee5 values(6,'Akshada');
+
+1 row created.
+
+SQL> insert into Employee5 values(5,'Tanvi');
+
+1 row created.
+
+SQL> insert into Employee5 values(2,'Pooja');
+
+1 row created.
+
+SQL> insert into Employee5 values(3,'Leena');
+
+1 row created.
+
+SQL> insert into Employee5 values(4,'Deepa');
+
+1 row created.
+
+SQL> select * from Employee5;
+
+      E_ID E_NAME
+---------- --------------------
+	15 Manoj
+	13 Pratik
+	11 Mayur
+	 9 Chetan
+	10 Husain
+	12 Pranav
+	14 Prerna
+	 8 Aniket
+	 1 Asmita
+	 7 Dhanu
+	 6 Akshada
+
+      E_ID E_NAME
+---------- --------------------
+	 5 Tanvi
+	 2 Pooja
+	 3 Leena
+	 4 Deepa
+
+15 rows selected.
+
+SQL> create table AssignTo(p_ID int,e_ID int);
+
+Table created.
+
+SQL> insert into AssignTo values(410,15);
+
+1 row created.
+
+SQL> insert into AssignTo values(300,13);
+
+1 row created.
+
+SQL> insert into AssignTo values(143,11);
+
+1 row created.
+
+SQL> insert into AssignTo values(300,9);
+
+1 row created.
+
+SQL> insert into AssignTo values(410,10);
+
+1 row created.
+
+SQL> insert into AssignTo values(214,12);
+
+1 row created.
+
+SQL> insert into AssignTo values(143,14);
+
+1 row created.
+
+SQL> insert into AssignTo values(355,8);
+
+1 row created.
+
+SQL> insert into AssignTo values(300,1);
+
+1 row created.
+
+SQL> insert into AssignTo values(355,7);
+
+1 row created.
+
+SQL> insert into AssignTo values(214,6);
+
+1 row created.
+
+SQL> insert into AssignTo values(143,5);
+
+1 row created.
+
+SQL> insert into AssignTo values(355,2);
+
+1 row created.
+
+SQL> insert into AssignTo values(300,3);
+
+1 row created.
+
+SQL> insert into AssignTo values(214,4);
+
+1 row created.
+
+SQL> select * from AssignTo;
+
+      P_ID	 E_ID
+---------- ----------
+       410	   15
+       300	   13
+       143	   11
+       300	    9
+       410	   10
+       214	   12
+       143	   14
+       355	    8
+       300	    1
+       355	    7
+       214	    6
+
+      P_ID	 E_ID
+---------- ----------
+       143	    5
+       355	    2
+       300	    3
+       214	    4
+
+15 rows selected.
+
+/* 1.Get number of Employees working on Project C300. */
+
+SQL> select count(e_ID) from AssignTo where p_ID=300;
+
+COUNT(E_ID)
+-----------
+	  4
+
+/* 4.Get number of employees working on All Projects. */
+
+SQL> select count(*) AS "Working on All Projects" from AssignTo;
+
+Working on All Projects
+-----------------------
+		     15
+
+**********************************************************************************************************
+
+SQL> create table employee4(e_name varchar(20),e_no int,skill varchar(15),payrate int);
+
+Table created.
+
+SQL> insert into employee4 values('Parth',71,'Programming',60000);
+
+1 row created.
+
+SQL> insert into employee4 values('Rahul',81,'Networking',40000);
+
+1 row created.
+
+SQL> insert into employee4 values('John',91,'Testing',45000);
+
+1 row created.
+
+SQL> insert into employee4 values('Manisha',101,'Developer',50000);
+
+1 row created.
+
+SQL> insert into employee4 values('Pratik',103,'Java',48000);
+
+1 row created.
+
+SQL> insert into employee4 values('Mayuri',121,'C++',33000);
+
+1 row created.
+
+SQL> insert into employee4 values('Nikita',105,'Coding',43000);
+
+1 row created.
+
+SQL> select * from employee4;
+
+E_NAME			   E_NO SKILL		   PAYRATE
+-------------------- ---------- --------------- ----------
+Parth			     71 Programming	     60000
+Rahul			     81 Networking	     40000
+John			     91 Testing 	     45000
+Manisha 		    101 Developer	     50000
+Pratik			    103 Java		     48000
+Mayuri			    121 C++		     33000
+Nikita			    105 Coding		     43000
+
+7 rows selected.
+
+SQL> create table position(posting_no int, skill varchar(20));
+
+Table created.
+
+SQL> insert into position values(01,'C++');
+
+1 row created.
+
+SQL> insert into position values(02,'Coding');
+
+1 row created.
+
+SQL> insert into position values(03,'Testing');
+
+1 row created.
+
+SQL> insert into position values(04,'Developer');
+
+1 row created.
+
+SQL> insert into position values(05,'Java');
+
+1 row created.
+
+SQL> insert into position values(06,'Programming');
+
+1 row created.
+
+SQL> insert into position values(07,'Networking');
+
+1 row created.
+
+SQL> select * from position;
+
+POSTING_NO SKILL
+---------- --------------------
+	 1 C++
+	 2 Coding
+	 3 Testing
+	 4 Developer
+	 5 Java
+	 6 Programming
+	 7 Networking
+
+7 rows selected.
+
+SQL> create table Duty(posting_no int,e_no int,e_date date,shift varchar(10));
+
+Table created.
+
+SQL> insert into Duty values(02,91,'20-05-2008','Night');
+
+1 row created.
+
+SQL> insert into Duty values(06,81,'01-06-2009','Day');
+
+1 row created.
+
+SQL> insert into Duty values(03,103,'21-05-2008','Day');
+
+1 row created.
+
+SQL> insert into Duty values(01,121,'05-09-2013','Day');
+
+1 row created.
+
+SQL> insert into Duty values(07,105,'30-05-2008','Night');
+
+1 row created.
+
+SQL> insert into Duty values(05,101,'21-04-2014','Night');
+
+1 row created.
+
+SQL> insert into Duty values(04,71,'09-01-2013','Night');
+
+1 row created.
+
+/* 1.Get details from duty allocation. */
+
+SQL> select * from Duty;
+
+POSTING_NO	 E_NO E_DATE   SHIFT
+---------- ---------- -------- ----------
+	 2	   91 20-05-08 Night
+	 6	   81 01-06-09 Day
+	 3	  103 21-05-08 Day
+	 1	  121 05-09-13 Day
+	 7	  105 30-05-08 Night
+	 5	  101 21-04-14 Night
+	 4	   71 09-01-13 Night
+
+7 rows selected.
+
+/* 2.Get duty allocation details for emp.no 101 for month april 2014. */
+
+SQL> select * from Duty where e_no=101 AND e_date='21-04-2014';
+
+POSTING_NO	 E_NO E_DATE   SHIFT
+---------- ---------- -------- ----------
+	 5	  101 21-04-14 Night
+
+/* 3.Find shift details for employee john. */
+
+SQL> select employee4.e_no, employee4.e_name, shift from employee4,Duty
+  2  WHERE employee4.e_no = Duty.e_no AND e_name='John';
+
+      E_NO E_NAME		SHIFT
+---------- -------------------- ----------
+	91 John 		Night
+
+/* 4.Find emp elligible to fill position. */
+
+SQL> select * from employee4 WHERE skill in(select  skill from position where skill='Java');
+
+E_NAME			   E_NO SKILL		   PAYRATE
+-------------------- ---------- --------------- ----------
+Pratik			    103 Java		     48000
+
+/* 5.Get employee who are working either on date 20may 2008 or 21 may 2008. */
+
+SQL> select * from Duty WHERE e_date='20-05-2008' OR e_date='21-05-2008';
+
+POSTING_NO	 E_NO E_DATE   SHIFT
+---------- ---------- -------- ----------
+	 2	   91 20-05-08 Night
+	 3	  103 21-05-08 Day
+
+
+

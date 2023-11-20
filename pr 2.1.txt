@@ -1,0 +1,634 @@
+
+
+
+admin1@proj03:~$ sudo service oracle-xe start
+[sudo] password for admin1: 
+admin1@proj03:~$ sqlplus sys as sysdba
+
+SQL*Plus: Release 11.2.0.2.0 Production on Tue Jul 18 11:16:45 2017
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+Enter password: 
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+SQL> create table employee(emp_name varchar(30),Designation varchar(15),Stream varchar(15),City varchar(15));
+
+Table created.
+
+SQL> create table workers(emp_name varchar(30),Company_name varchar(15),Salary int);    
+
+Table created.
+
+SQL> create table company(Company_name varchar(30),Manager_name varchar(15));
+
+Table created.
+
+SQL> insert into employee values('Sayali','Sr_Manager','Software','Nasik');
+
+1 row created.
+
+SQL> insert into employee values('Pratiksha','Sr_Manager','Software','Mumbai');
+
+1 row created.
+
+SQL> insert into employee values('Harshali','Sr_Manager','Software','Pune');
+
+1 row created.
+
+SQL> insert into employee values('Harsh','Jr_Manager','Software','Pune');
+
+1 row created.
+
+SQL> insert into employee values('Ajay','Jr_Manager','Software','Mumbai');
+
+1 row created.
+
+SQL> insert into employee values('Prateek','Jr_Manager','Software','Nasik');
+
+1 row created.
+
+SQL> select * from employee;
+
+EMP_NAME		       DESIGNATION     STREAM	       CITY
+------------------------------ --------------- --------------- ---------------
+Sayali			       Sr_Manager      Software        Nasik
+Pratiksha		       Sr_Manager      Software        Mumbai
+Harshali		       Sr_Manager      Software        Pune
+Harsh			       Jr_Manager      Software        Pune
+Ajay			       Jr_Manager      Software        Mumbai
+Prateek 		       Jr_Manager      Software        Nasik
+
+6 rows selected.
+
+SQL> insert into workers values('Kajal','TCL',25000);
+
+1 row created.
+
+SQL> insert into workers values('Komal','TCL',35000);
+
+1 row created.
+
+SQL> insert into workers values('Kishan','VIPRO',33000);
+
+1 row created.
+
+SQL> insert into workers values('Sagar','VIPRO',23000);
+
+1 row created.
+
+SQL> insert into workers values('Sachin','CAD',25000);
+
+1 row created.
+
+SQL> insert into workers values('Tushar','Mahindra',35000);
+
+1 row created.
+
+SQL> select * from workers;
+
+EMP_NAME		       COMPANY_NAME	   SALARY
+------------------------------ --------------- ----------
+Kajal			       TCL		    25000
+Komal			       TCL		    35000
+Kishan			       VIPRO		    33000
+Sagar			       VIPRO		    23000
+Sachin			       CAD		    25000
+Tushar			       Mahindra 	    35000
+
+6 rows selected.
+
+SQL> insert into company values('TCL','Rahul');
+
+1 row created.
+
+SQL>  insert into company values('VIPRO','Sunil');
+
+1 row created.
+
+SQL> insert into company values('CAD','Ram');
+
+1 row created.
+
+SQL> insert into company values('Mahindra','Sujata');
+
+1 row created.
+
+
+/*
+
+1.display all employee names
+
+*/
+
+
+
+
+SQL> select * from company;
+
+COMPANY_NAME		       MANAGER_NAME
+------------------------------ ---------------
+TCL			       Rahul
+VIPRO			       Sunil
+CAD			       Ram
+Mahindra		       Sujata
+
+
+SQL> select emp_name from employee
+  2  union
+  3  select emp_name from workers;
+
+EMP_NAME
+------------------------------
+Ajay
+Harsh
+Harshali
+Kajal
+Kishan
+Komal
+Prateek
+Pratiksha
+Sachin
+Sagar
+Sayali
+
+EMP_NAME
+------------------------------
+Tushar
+
+12 rows selected.
+
+/*
+
+2.Display all employee's earning more than 30,000.
+
+*/
+
+
+SQL> select emp_name,salary from workers
+  2  where
+  3  salary>30000;
+
+EMP_NAME			   SALARY
+------------------------------ ----------
+Komal				    35000
+Kishan				    33000
+Tushar				    35000
+
+
+/*
+
+3.Display employees that work for 'TCL'.
+
+*/
+
+
+
+SQL> select emp_name,company_name from workers
+  2  where
+  3  company_name='TCL';
+
+EMP_NAME		       COMPANY_NAME
+------------------------------ ---------------
+Kajal			       TCL
+Komal			       TCL
+
+
+/*
+
+4.Display the employye who can earn more than 25,000 and work for 'VIPRO'.
+
+*/
+
+
+
+SQL> select emp_name,salary,company_name from workers
+  2  where
+  3  salary>25000 AND company_name='VIPRO';
+
+EMP_NAME			   SALARY COMPANY_NAME
+------------------------------ ---------- ---------------
+Kishan				    33000 VIPRO
+
+
+/*
+
+5.Display all empoyee's data.
+
+*/
+
+
+
+SQL> select * from employee;
+
+EMP_NAME		       DESIGNATION     STREAM	       CITY
+------------------------------ --------------- --------------- ---------------
+Sayali			       Sr_Manager      Software        Nasik
+Pratiksha		       Sr_Manager      Software        Mumbai
+Harshali		       Sr_Manager      Software        Pune
+Harsh			       Jr_Manager      Software        Pune
+Ajay			       Jr_Manager      Software        Mumbai
+Prateek 		       Jr_Manager      Software        Nasik
+
+6 rows selected.
+
+/*
+
+6.Display the employees who work under manager 'Rahul'.
+
+*/
+
+
+
+SQL> select emp_name,workers.company_name,company.manager_name from workers,company 
+  2  where
+  3  workers.company_name=company.company_name AND manager_name='Rahul';
+
+EMP_NAME		       COMPANY_NAME    MANAGER_NAME
+------------------------------ --------------- ---------------
+Kajal			       TCL	       Rahul
+Komal			       TCL	       Rahul
+
+
+/*
+
+7.Display the componies located in 'Mumbai'.
+
+*/
+
+
+SQL> alter table employee add company_name varchar(15);
+
+Table altered.
+
+SQL> update employee 
+  2  set company_name='TCL'
+  3  where city='Nasik';
+
+2 rows updated.
+
+SQL> update employee  set company_name='VIPRO' where city='Pune';
+
+2 rows updated.
+
+SQL> update employee  set company_name='Mahindra' where city='Mumbai';
+
+2 rows updated.
+
+SQL> update employee  set company_name='CAD' where city='Mumbai';       
+
+2 rows updated.
+
+SQL> select * from employee;
+
+EMP_NAME		       DESIGNATION     STREAM	       CITY
+------------------------------ --------------- --------------- ---------------
+COMPANY_NAME
+---------------
+Sayali			       Sr_Manager      Software        Nasik
+TCL
+
+Pratiksha		       Sr_Manager      Software        Mumbai
+CAD
+
+Harshali		       Sr_Manager      Software        Pune
+VIPRO
+
+
+EMP_NAME		       DESIGNATION     STREAM	       CITY
+------------------------------ --------------- --------------- ---------------
+COMPANY_NAME
+---------------
+Harsh			       Jr_Manager      Software        Pune
+VIPRO
+
+Ajay			       Jr_Manager      Software        Mumbai
+CAD
+
+Prateek 		       Jr_Manager      Software        Nasik
+TCL
+
+
+6 rows selected.
+
+SQL> select company_name,city from employee
+  2  where
+  3  city='Mumbai';
+
+COMPANY_NAME	CITY
+--------------- ---------------
+CAD		Mumbai
+CAD		Mumbai
+
+
+/*
+
+8.Select company that has most employees. 
+
+*/
+
+
+SQL> select max(company_name)
+  2  from workers
+  3  union
+  4  select max(company_name)
+  5  from workers;
+
+MAX(COMPANY_NAM
+---------------
+VIPRO
+
+
+/*
+
+9.Display citywise employees details.
+
+*/
+
+
+
+SQL> select * from employee order by city;
+
+EMP_NAME		       DESIGNATION     STREAM	       CITY
+------------------------------ --------------- --------------- ---------------
+COMPANY_NAME
+---------------
+Ajay			       Jr_Manager      Software        Mumbai
+CAD
+
+Pratiksha		       Sr_Manager      Software        Mumbai
+CAD
+
+Prateek 		       Jr_Manager      Software        Nasik
+TCL
+
+
+EMP_NAME		       DESIGNATION     STREAM	       CITY
+------------------------------ --------------- --------------- ---------------
+COMPANY_NAME
+---------------
+Sayali			       Sr_Manager      Software        Nasik
+TCL
+
+Harsh			       Jr_Manager      Software        Pune
+VIPRO
+
+Harshali		       Sr_Manager      Software        Pune
+VIPRO
+
+
+6 rows selected.
+
+
+/*
+
+10.Display highest salary of employees.
+
+*/
+
+SQL> select max(salary) from workers;
+
+MAX(SALARY)
+-----------
+      35000
+
+SQL> select min(salary) from workers;
+
+/*
+
+11.Display Lowest salary of employees
+
+*/
+
+
+MIN(SALARY)
+-----------
+      23000
+
+
+/*
+
+12.Display all employees names starting with 's'.
+
+*/
+
+SQL> select emp_name from employee where emp_name like'S%'
+  2  union
+  3  select emp_name from workers where emp_name like'S%';
+
+EMP_NAME
+------------------------------
+Sachin
+Sagar
+Sayali
+
+
+/*
+
+13.Create a view  compony that will contain comp_name and emp_name .Insert 5 tuples in view created.
+
+*/
+
+
+SQL> create view my_view as
+  2  select emp_name,company_name
+  3  from employee;
+
+View created.
+
+SQL> select * from my_view;
+
+EMP_NAME		       COMPANY_NAME
+------------------------------ ---------------
+Sayali			       TCL
+Pratiksha		       CAD
+Harshali		       VIPRO
+Harsh			       VIPRO
+Ajay			       CAD
+Prateek 		       TCL
+
+6 rows selected.
+
+SQL> insert into my_view values('Apeksha','ABB');
+
+1 row created.
+
+SQL> insert into my_view values('Mitali','ABB');
+
+1 row created.
+
+SQL> insert into my_view values('Manisha','CEAT');
+
+1 row created.
+
+SQL> insert into my_view values('Akshay','EXLO');
+
+1 row created.
+
+SQL> insert into my_view values('Sangram','COOPER');
+
+1 row created.
+
+SQL> select * from my_view;
+
+EMP_NAME		       COMPANY_NAME
+------------------------------ ---------------
+Sayali			       TCL
+Pratiksha		       CAD
+Harshali		       VIPRO
+Harsh			       VIPRO
+Ajay			       CAD
+Prateek 		       TCL
+Apeksha 		       ABB
+Mitali			       ABB
+Manisha 		       CEAT
+Akshay			       EXLO
+Sangram 		       COOPER
+
+11 rows selected.
+
+
+/*
+
+14.Delete 3 tuples from view
+
+
+*/
+
+SQL> delete from my_view
+  2  where emp_name='Sangram';
+
+1 row deleted.
+
+SQL> delete from my_view
+  2  where emp_name='Akshay';
+
+1 row deleted.
+
+SQL> delete from my_view
+  2  where emp_name='Manisha';
+
+1 row deleted.
+
+SQL> select * from my_view; 
+
+EMP_NAME		       COMPANY_NAME
+------------------------------ ---------------
+Sayali			       TCL
+Pratiksha		       CAD
+Harshali		       VIPRO
+Harsh			       VIPRO
+Ajay			       CAD
+Prateek 		       TCL
+Apeksha 		       ABB
+Mitali			       ABB
+
+8 rows selected.
+
+
+/*
+
+15.Create index on emp_name,create sequence,create synonym for table employee.
+
+*/
+
+
+SQL> create index index_emp
+  2  on employee(emp_name);
+
+Index created.
+
+SQL> select * from my_view;
+
+EMP_NAME		       COMPANY_NAME
+------------------------------ ---------------
+Sayali			       TCL
+Pratiksha		       CAD
+Harshali		       VIPRO
+Harsh			       VIPRO
+Ajay			       CAD
+Prateek 		       TCL
+Apeksha 		       ABB
+Mitali			       ABB
+Manisha 		       CEAT
+Akshay			       EXLO
+Sangram 		       COOPER
+
+11 rows selected.
+
+
+SQL> select * from employee;
+
+EMP_NAME		       DESIGNATION     STREAM	       CITY
+------------------------------ --------------- --------------- ---------------
+COMPANY_NAME
+---------------
+Sayali			       Sr_Manager      Software        Nasik
+TCL
+
+Pratiksha		       Sr_Manager      Software        Mumbai
+CAD
+
+Harshali		       Sr_Manager      Software        Pune
+VIPRO
+
+
+EMP_NAME		       DESIGNATION     STREAM	       CITY
+------------------------------ --------------- --------------- ---------------
+COMPANY_NAME
+---------------
+Harsh			       Jr_Manager      Software        Pune
+VIPRO
+
+Ajay			       Jr_Manager      Software        Mumbai
+CAD
+
+Prateek 		       Jr_Manager      Software        Nasik
+TCL
+
+
+EMP_NAME		       DESIGNATION     STREAM	       CITY
+------------------------------ --------------- --------------- ---------------
+COMPANY_NAME
+---------------
+Apeksha
+ABB
+
+Mitali
+ABB
+
+Manisha
+CEAT
+
+
+EMP_NAME		       DESIGNATION     STREAM	       CITY
+------------------------------ --------------- --------------- ---------------
+COMPANY_NAME
+---------------
+Akshay
+EXLO
+
+Sangram
+COOPER
+
+
+11 rows selected.
+
+
+SQL>  create sequence my_seq 
+  2  start with 25000
+  3  increment by 2500;
+
+Sequence created.
+
+
+SQL> create synonym my_synonym
+  2  for workers.compony_name;
+
+Synonym created.
+
+
+
+

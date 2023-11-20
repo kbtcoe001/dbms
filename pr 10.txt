@@ -1,0 +1,415 @@
+Queries Questions:
+
+Create Collection student with parameters In, name, marks, status, address and DOA
+
+1. insert 15 records
+
+2. find and pretty
+
+3. marks>65 and P
+
+4. marks>65
+
+5. ID-12
+
+6. MARKS 30 OR STATUS IS FAIL
+
+7. ASCENDING ORDER
+
+8. DESCENDING ORDER
+
+9. FROM PUNE OR NASHIK
+
+10. STATUS-PASS
+
+11. UPDATE FROM NASHIK TO NASHIKROAD
+
+12. db.Student.remove({id:12})
+
+13. TOTAL NO OF RECORDS
+
+14. UNIQUE VALUE FOR ADDRESS
+
+15. FIRST 10 RECORDS
+
+16. SKIP FIRST 2 RECORDS
+
+17. SKIP FIRST 6 RECORDS AND DISPLAY NEXT 5 RECORDS
+
+
++-------+----------------+-------------+----------+------+------------+--------+-------+----------------+-------------+----------+------+------------+--------+
+OUTPUT:
+
+
+Create Collection student with parameters In, name, marks, status, address and DOA
+
+db.createCollection("student", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: ["In", "name", "marks", "status", "address", "DOA"],
+         properties: {
+            In: {
+               bsonType: "int",
+               description: "must be an integer and is required"
+            },
+            name: {
+               bsonType: "string",
+               description: "must be a string and is required"
+            },
+            marks: {
+               bsonType: "int",
+               description: "must be an integer and is required"
+            },
+            status: {
+               enum: ["active", "inactive", "suspended"],
+               description: "can only be one of the enum values and is required"
+            },
+            address: {
+               bsonType: "string",
+               description: "must be a string and is required"
+            },
+            DOA: {
+               bsonType: "date",
+               description: "must be a date and is required"
+            }
+         }
+      }
+   }
+})
+
+
+1)insert 15 records
+> db.createCollection('Student')
+{ "ok" : 1 }
+> db.Student.insert({id:1,name:'Amit',marks:70,status:'P',address:'Nashik',DOA:'2021-12-17'})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:2,name:'jenny',marks:37,status:'F',address:'pune',DOA:'2021-12-19'})
+WriteResult({ "nInserted" : 1 })
+> > db.Student.insert({id:3,name:'Riya',marks:65,status:'P',address:'nashik',DOA:'2021-12-18'})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:4,name:'priya',marks:70,status:'P',address:'Mumbai',DOA:'2021-12-19'})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:5,name:'jiya',marks:80,status:'P',address:'Mumbai',DOA:'2021-12-15'})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:6,name:'gita',marks:30,status:'F',address:'pune',DOA:'2021-12-13'})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:7,name:'ashith',marks:90,status:'P',address:'Nashik',DOA:'2021-12-17'})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:8,name:'atharva',marks:38,status:'P',address:'Nashik',DOA:'2021-12-15'})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:9,name:'laksh',marks:80,status:'P',address:'Mumbai',DOA:'2021-12-19'})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:10,name:'shaurya',marks:85,status:'P',address:'Nashik',DOA:'2021-12-18'})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:11,name:'shravani',marks:65,status:'P',address:'pune',DOA:'2021-12-17'})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:12,name:'sharvari',marks:65,status:'P',address:'mumbai',DOA:'2021-12-18'})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:13,name:'ciya',marks:80,status:'P',address:'mumbai',DOA:'2021-12-13'})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:14,name:'kashish',marks:30,status:'F',address:'nashik',DOA:'2021-12-14'})
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:15,name:'kirti',marks:30,status:'F',address:'pune',DOA:'2021-12-17'})
+WriteResult({ "nInserted" : 1 })
+
+2) find and pretty
+> db.Student.find()
+{ "_id" : ObjectId("651d1ced585173a7e3f17015"), "id" : 1, "name" : "Amit", "marks" : 70, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1dcf585173a7e3f17018"), "id" : 3, "name" : "Riya", "marks" : 65, "status" : "P", "address" : "nashik", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1e00585173a7e3f17019"), "id" : 4, "name" : "priya", "marks" : 70, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1e27585173a7e3f1701a"), "id" : 5, "name" : "jiya", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1e78585173a7e3f1701c"), "id" : 7, "name" : "ashith", "marks" : 90, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1e93585173a7e3f1701d"), "id" : 8, "name" : "atharva", "marks" : 38, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1eb1585173a7e3f1701e"), "id" : 9, "name" : "laksh", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1ed5585173a7e3f1701f"), "id" : 10, "name" : "shaurya", "marks" : 85, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1efd585173a7e3f17020"), "id" : 11, "name" : "shravani", "marks" : 65, "status" : "P", "address" : "pune", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1f1b585173a7e3f17021"), "id" : 12, "name" : "sharvari", "marks" : 65, "status" : "P", "address" : "mumbai", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1f33585173a7e3f17022"), "id" : 13, "name" : "ciya", "marks" : 80, "status" : "P", "address" : "mumbai", "DOA" : "2021-12-13" }
+{ "_id" : ObjectId("651d1f77585173a7e3f17023"), "id" : 14, "name" : "kashish", "marks" : 30, "status" : "F", "address" : "nashik", "DOA" : "2021-12-14" }
+{ "_id" : ObjectId("651d1fa4585173a7e3f17024"), "id" : 15, "name" : "kirti", "marks" : 30, "status" : "F", "address" : "pune", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1ff4585173a7e3f17025"), "id" : 6, "name" : "gita", "marks" : 30, "status" : "F", "address" : "pune", "DOA" : "2021-12-13" }
+{ "_id" : ObjectId("651d202c585173a7e3f17026"), "id" : 2, "name" : "jenny", "marks" : 37, "status" : "F", "address" : "pune", "DOA" : "2021-12-19" }
+> db.Student.find().pretty()
+{
+"_id" : ObjectId("651d1ced585173a7e3f17015"),
+"id" : 1,
+"name" : "Amit",
+"marks" : 70,
+"status" : "P",
+"address" : "Nashik",
+"DOA" : "2021-12-17"
+}
+{
+"_id" : ObjectId("651d1dcf585173a7e3f17018"),
+"id" : 3,
+"name" : "Riya",
+"marks" : 65,
+"status" : "P",
+"address" : "nashik",
+"DOA" : "2021-12-18"
+}
+{
+"_id" : ObjectId("651d1e00585173a7e3f17019"),
+"id" : 4,
+"name" : "priya",
+"marks" : 70,
+"status" : "P",
+"address" : "Mumbai",
+"DOA" : "2021-12-19"
+}
+{
+"_id" : ObjectId("651d1e27585173a7e3f1701a"),
+"id" : 5,
+"name" : "jiya",
+"marks" : 80,
+"status" : "P",
+"address" : "Mumbai",
+"DOA" : "2021-12-15"
+}
+{
+"_id" : ObjectId("651d1e78585173a7e3f1701c"),
+"id" : 7,
+"name" : "ashith",
+"marks" : 90,
+"status" : "P",
+"address" : "Nashik",
+"DOA" : "2021-12-17"
+}
+{
+"_id" : ObjectId("651d1e93585173a7e3f1701d"),
+"id" : 8,
+"name" : "atharva",
+"marks" : 38,
+"status" : "P",
+"address" : "Nashik",
+"DOA" : "2021-12-15"
+}
+{
+"_id" : ObjectId("651d1eb1585173a7e3f1701e"),
+"id" : 9,
+"name" : "laksh",
+"marks" : 80,
+"status" : "P",
+"address" : "Mumbai",
+"DOA" : "2021-12-19"
+}
+{
+"_id" : ObjectId("651d1ed5585173a7e3f1701f"),
+"id" : 10,
+"name" : "shaurya",
+"marks" : 85,
+"status" : "P",
+"address" : "Nashik",
+"DOA" : "2021-12-18"
+}
+{
+"_id" : ObjectId("651d1efd585173a7e3f17020"),
+"id" : 11,
+"name" : "shravani",
+"marks" : 65,
+"status" : "P",
+"address" : "pune",
+"DOA" : "2021-12-17"
+}
+{
+"_id" : ObjectId("651d1f1b585173a7e3f17021"),
+"id" : 12,
+"name" : "sharvari",
+"marks" : 65,
+"status" : "P",
+"address" : "mumbai",
+"DOA" : "2021-12-18"
+}
+{
+"_id" : ObjectId("651d1f33585173a7e3f17022"),
+"id" : 13,
+"name" : "ciya",
+"marks" : 80,
+"status" : "P",
+"address" : "mumbai",
+"DOA" : "2021-12-13"
+}
+{
+"_id" : ObjectId("651d1f77585173a7e3f17023"),
+"id" : 14,
+"name" : "kashish",
+"marks" : 30,
+"status" : "F",
+"address" : "nashik",
+"DOA" : "2021-12-14"
+}
+{
+"_id" : ObjectId("651d1fa4585173a7e3f17024"),
+"id" : 15,
+"name" : "kirti",
+"marks" : 30,
+"status" : "F",
+"address" : "pune",
+"DOA" : "2021-12-17"
+}
+{
+"_id" : ObjectId("651d1ff4585173a7e3f17025"),
+"id" : 6,
+"name" : "gita",
+"marks" : 30,
+"status" : "F",
+"address" : "pune",
+"DOA" : "2021-12-13"
+}
+{
+"_id" : ObjectId("651d202c585173a7e3f17026"),
+"id" : 2,
+"name" : "jenny",
+"marks" : 37,
+"status" : "F",
+"address" : "pune",
+"DOA" : "2021-12-19"
+}
+
+3) marks>65 and P
+> db.Student.find({status:{$eq:'P'},marks:{$gt:65}})
+{ "_id" : ObjectId("651d1ced585173a7e3f17015"), "id" : 1, "name" : "Amit", "marks" : 70, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1e00585173a7e3f17019"), "id" : 4, "name" : "priya", "marks" : 70, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1e27585173a7e3f1701a"), "id" : 5, "name" : "jiya", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1e78585173a7e3f1701c"), "id" : 7, "name" : "ashith", "marks" : 90, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1eb1585173a7e3f1701e"), "id" : 9, "name" : "laksh", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1ed5585173a7e3f1701f"), "id" : 10, "name" : "shaurya", "marks" : 85, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1f33585173a7e3f17022"), "id" : 13, "name" : "ciya", "marks" : 80, "status" : "P", "address" : "mumbai", "DOA" : "2021-12-13" }
+
+4)marks>65
+> db.Student.find({marks:{$gt:65}})
+{ "_id" : ObjectId("651d1ced585173a7e3f17015"), "id" : 1, "name" : "Amit", "marks" : 70, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1e00585173a7e3f17019"), "id" : 4, "name" : "priya", "marks" : 70, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1e27585173a7e3f1701a"), "id" : 5, "name" : "jiya", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1e78585173a7e3f1701c"), "id" : 7, "name" : "ashith", "marks" : 90, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1eb1585173a7e3f1701e"), "id" : 9, "name" : "laksh", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1ed5585173a7e3f1701f"), "id" : 10, "name" : "shaurya", "marks" : 85, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1f33585173a7e3f17022"), "id" : 13, "name" : "ciya", "marks" : 80, "status" : "P", "address" : "mumbai", "DOA" : "2021-12-13" }
+5)ID-12
+ db.Student.find({id:12})
+{ "_id" : ObjectId("651d1f1b585173a7e3f17021"), "id" : 12, "name" : "sharvari", "marks" : 65, "status" : "P", "address" : "mumbai", "DOA" : "2021-12-18" }
+6) MARKS 30 OR STATUS IS FAIL
+> db.Student.find({$or:[{marks:30},{status:'F'}]})
+{ "_id" : ObjectId("651d1f77585173a7e3f17023"), "id" : 14, "name" : "kashish", "marks" : 30, "status" : "F", "address" : "nashik", "DOA" : "2021-12-14" }
+{ "_id" : ObjectId("651d1fa4585173a7e3f17024"), "id" : 15, "name" : "kirti", "marks" : 30, "status" : "F", "address" : "pune", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1ff4585173a7e3f17025"), "id" : 6, "name" : "gita", "marks" : 30, "status" : "F", "address" : "pune", "DOA" : "2021-12-13" }
+{ "_id" : ObjectId("651d202c585173a7e3f17026"), "id" : 2, "name" : "jenny", "marks" : 37, "status" : "F", "address" : "pune", "DOA" : "2021-12-19" }
+7)ASCENDING ORDER
+> db.Student.find().sort({id:1})
+{ "_id" : ObjectId("651d1ced585173a7e3f17015"), "id" : 1, "name" : "Amit", "marks" : 70, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d202c585173a7e3f17026"), "id" : 2, "name" : "jenny", "marks" : 37, "status" : "F", "address" : "pune", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1dcf585173a7e3f17018"), "id" : 3, "name" : "Riya", "marks" : 65, "status" : "P", "address" : "nashik", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1e00585173a7e3f17019"), "id" : 4, "name" : "priya", "marks" : 70, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1e27585173a7e3f1701a"), "id" : 5, "name" : "jiya", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1ff4585173a7e3f17025"), "id" : 6, "name" : "gita", "marks" : 30, "status" : "F", "address" : "pune", "DOA" : "2021-12-13" }
+{ "_id" : ObjectId("651d1e78585173a7e3f1701c"), "id" : 7, "name" : "ashith", "marks" : 90, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1e93585173a7e3f1701d"), "id" : 8, "name" : "atharva", "marks" : 38, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1eb1585173a7e3f1701e"), "id" : 9, "name" : "laksh", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1ed5585173a7e3f1701f"), "id" : 10, "name" : "shaurya", "marks" : 85, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1efd585173a7e3f17020"), "id" : 11, "name" : "shravani", "marks" : 65, "status" : "P", "address" : "pune", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1f1b585173a7e3f17021"), "id" : 12, "name" : "sharvari", "marks" : 65, "status" : "P", "address" : "mumbai", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1f33585173a7e3f17022"), "id" : 13, "name" : "ciya", "marks" : 80, "status" : "P", "address" : "mumbai", "DOA" : "2021-12-13" }
+{ "_id" : ObjectId("651d1f77585173a7e3f17023"), "id" : 14, "name" : "kashish", "marks" : 30, "status" : "F", "address" : "nashik", "DOA" : "2021-12-14" }
+{ "_id" : ObjectId("651d1fa4585173a7e3f17024"), "id" : 15, "name" : "kirti", "marks" : 30, "status" : "F", "address" : "pune", "DOA" : "2021-12-17" }
+8)DESCENDING ORDER
+> db.Student.find().sort({id:-1})
+{ "_id" : ObjectId("651d1fa4585173a7e3f17024"), "id" : 15, "name" : "kirti", "marks" : 30, "status" : "F", "address" : "pune", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1f77585173a7e3f17023"), "id" : 14, "name" : "kashish", "marks" : 30, "status" : "F", "address" : "nashik", "DOA" : "2021-12-14" }
+{ "_id" : ObjectId("651d1f33585173a7e3f17022"), "id" : 13, "name" : "ciya", "marks" : 80, "status" : "P", "address" : "mumbai", "DOA" : "2021-12-13" }
+{ "_id" : ObjectId("651d1f1b585173a7e3f17021"), "id" : 12, "name" : "sharvari", "marks" : 65, "status" : "P", "address" : "mumbai", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1efd585173a7e3f17020"), "id" : 11, "name" : "shravani", "marks" : 65, "status" : "P", "address" : "pune", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1ed5585173a7e3f1701f"), "id" : 10, "name" : "shaurya", "marks" : 85, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1eb1585173a7e3f1701e"), "id" : 9, "name" : "laksh", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1e93585173a7e3f1701d"), "id" : 8, "name" : "atharva", "marks" : 38, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1e78585173a7e3f1701c"), "id" : 7, "name" : "ashith", "marks" : 90, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1ff4585173a7e3f17025"), "id" : 6, "name" : "gita", "marks" : 30, "status" : "F", "address" : "pune", "DOA" : "2021-12-13" }
+{ "_id" : ObjectId("651d1e27585173a7e3f1701a"), "id" : 5, "name" : "jiya", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1e00585173a7e3f17019"), "id" : 4, "name" : "priya", "marks" : 70, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1dcf585173a7e3f17018"), "id" : 3, "name" : "Riya", "marks" : 65, "status" : "P", "address" : "nashik", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d202c585173a7e3f17026"), "id" : 2, "name" : "jenny", "marks" : 37, "status" : "F", "address" : "pune", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1ced585173a7e3f17015"), "id" : 1, "name" : "Amit", "marks" : 70, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-17" }
+9)FROM PUNE OR NASHIK
+> db.Student.find({$or:[{address:'pune'},{address:'Mumbai'}]})
+{ "_id" : ObjectId("651d1e00585173a7e3f17019"), "id" : 4, "name" : "priya", "marks" : 70, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1e27585173a7e3f1701a"), "id" : 5, "name" : "jiya", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1eb1585173a7e3f1701e"), "id" : 9, "name" : "laksh", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1efd585173a7e3f17020"), "id" : 11, "name" : "shravani", "marks" : 65, "status" : "P", "address" : "pune", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1fa4585173a7e3f17024"), "id" : 15, "name" : "kirti", "marks" : 30, "status" : "F", "address" : "pune", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1ff4585173a7e3f17025"), "id" : 6, "name" : "gita", "marks" : 30, "status" : "F", "address" : "pune", "DOA" : "2021-12-13" }
+{ "_id" : ObjectId("651d202c585173a7e3f17026"), "id" : 2, "name" : "jenny", "marks" : 37, "status" : "F", "address" : "pune", "DOA" : "2021-12-19" }
+10)STATUS-PASS
+> db.Student.find({status:'P'})
+{ "_id" : ObjectId("651d1ced585173a7e3f17015"), "id" : 1, "name" : "Amit", "marks" : 70, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1dcf585173a7e3f17018"), "id" : 3, "name" : "Riya", "marks" : 65, "status" : "P", "address" : "nashik", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1e00585173a7e3f17019"), "id" : 4, "name" : "priya", "marks" : 70, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1e27585173a7e3f1701a"), "id" : 5, "name" : "jiya", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1e78585173a7e3f1701c"), "id" : 7, "name" : "ashith", "marks" : 90, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1e93585173a7e3f1701d"), "id" : 8, "name" : "atharva", "marks" : 38, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1eb1585173a7e3f1701e"), "id" : 9, "name" : "laksh", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1ed5585173a7e3f1701f"), "id" : 10, "name" : "shaurya", "marks" : 85, "status" : "P", "address" : "Nashik", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1efd585173a7e3f17020"), "id" : 11, "name" : "shravani", "marks" : 65, "status" : "P", "address" : "pune", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1f1b585173a7e3f17021"), "id" : 12, "name" : "sharvari", "marks" : 65, "status" : "P", "address" : "mumbai", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1f33585173a7e3f17022"), "id" : 13, "name" : "ciya", "marks" : 80, "status" : "P", "address" : "mumbai", "DOA" : "2021-12-13" }
+11) UPDATE FROM NASHIK TO NASHIKROAD
+> db.Student.updateMany({address:'nashik'},{$set:{address:'Nashik-Road'}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.Student.updateMany({address:'Nashik'},{$set:{address:'Nashik-Road'}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.Student.find()
+{ "_id" : ObjectId("651d1ced585173a7e3f17015"), "id" : 1, "name" : "Amit", "marks" : 70, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1dcf585173a7e3f17018"), "id" : 3, "name" : "Riya", "marks" : 65, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1e00585173a7e3f17019"), "id" : 4, "name" : "priya", "marks" : 70, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1e27585173a7e3f1701a"), "id" : 5, "name" : "jiya", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1e78585173a7e3f1701c"), "id" : 7, "name" : "ashith", "marks" : 90, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1e93585173a7e3f1701d"), "id" : 8, "name" : "atharva", "marks" : 38, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1eb1585173a7e3f1701e"), "id" : 9, "name" : "laksh", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1ed5585173a7e3f1701f"), "id" : 10, "name" : "shaurya", "marks" : 85, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1efd585173a7e3f17020"), "id" : 11, "name" : "shravani", "marks" : 65, "status" : "P", "address" : "pune", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1f33585173a7e3f17022"), "id" : 13, "name" : "ciya", "marks" : 80, "status" : "P", "address" : "mumbai", "DOA" : "2021-12-13" }
+{ "_id" : ObjectId("651d1f77585173a7e3f17023"), "id" : 14, "name" : "kashish", "marks" : 30, "status" : "F", "address" : "Nashik-Road", "DOA" : "2021-12-14" }
+{ "_id" : ObjectId("651d1fa4585173a7e3f17024"), "id" : 15, "name" : "kirti", "marks" : 30, "status" : "F", "address" : "pune", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1ff4585173a7e3f17025"), "id" : 6, "name" : "gita", "marks" : 30, "status" : "F", "address" : "pune", "DOA" : "2021-12-13" }
+{ "_id" : ObjectId("651d202c585173a7e3f17026"), "id" : 2, "name" : "jenny", "marks" : 37, "status" : "F", "address" : "pune", "DOA" : "2021-12-19" }
+12)db.Student.remove({id:12})
+WriteResult({ "nRemoved" : 1 })
+13) TOTAL NO OF RECORDS
+db.Student.find().count()
+14
+14) UNIQUE VALUE FOR ADDRESS
+> db.Student.distinct('address')
+[ "Mumbai", "Nashik-Road", "mumbai", "pune" ]
+>
+15) FIRST 10 RECORDS
+> db.Student.find().limit(10)
+{ "_id" : ObjectId("651d1ced585173a7e3f17015"), "id" : 1, "name" : "Amit", "marks" : 70, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1dcf585173a7e3f17018"), "id" : 3, "name" : "Riya", "marks" : 65, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1e00585173a7e3f17019"), "id" : 4, "name" : "priya", "marks" : 70, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1e27585173a7e3f1701a"), "id" : 5, "name" : "jiya", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1e78585173a7e3f1701c"), "id" : 7, "name" : "ashith", "marks" : 90, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1e93585173a7e3f1701d"), "id" : 8, "name" : "atharva", "marks" : 38, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1eb1585173a7e3f1701e"), "id" : 9, "name" : "laksh", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1ed5585173a7e3f1701f"), "id" : 10, "name" : "shaurya", "marks" : 85, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1efd585173a7e3f17020"), "id" : 11, "name" : "shravani", "marks" : 65, "status" : "P", "address" : "pune", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1f33585173a7e3f17022"), "id" : 13, "name" : "ciya", "marks" : 80, "status" : "P", "address" : "mumbai", "DOA" : "2021-12-13" }
+16)SKIP FIRST 2 RECORDS
+> db.Student.find().skip(2)
+{ "_id" : ObjectId("651d1e00585173a7e3f17019"), "id" : 4, "name" : "priya", "marks" : 70, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1e27585173a7e3f1701a"), "id" : 5, "name" : "jiya", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1e78585173a7e3f1701c"), "id" : 7, "name" : "ashith", "marks" : 90, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1e93585173a7e3f1701d"), "id" : 8, "name" : "atharva", "marks" : 38, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1eb1585173a7e3f1701e"), "id" : 9, "name" : "laksh", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1ed5585173a7e3f1701f"), "id" : 10, "name" : "shaurya", "marks" : 85, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-18" }
+{ "_id" : ObjectId("651d1efd585173a7e3f17020"), "id" : 11, "name" : "shravani", "marks" : 65, "status" : "P", "address" : "pune", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1f33585173a7e3f17022"), "id" : 13, "name" : "ciya", "marks" : 80, "status" : "P", "address" : "mumbai", "DOA" : "2021-12-13" }
+{ "_id" : ObjectId("651d1f77585173a7e3f17023"), "id" : 14, "name" : "kashish", "marks" : 30, "status" : "F", "address" : "Nashik-Road", "DOA" : "2021-12-14" }
+{ "_id" : ObjectId("651d1fa4585173a7e3f17024"), "id" : 15, "name" : "kirti", "marks" : 30, "status" : "F", "address" : "pune", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1ff4585173a7e3f17025"), "id" : 6, "name" : "gita", "marks" : 30, "status" : "F", "address" : "pune", "DOA" : "2021-12-13" }
+{ "_id" : ObjectId("651d202c585173a7e3f17026"), "id" : 2, "name" : "jenny", "marks" : 37, "status" : "F", "address" : "pune", "DOA" : "2021-12-19" }
+17)SKIP FIRST 6 RECORDS AND DISPLAY NEXT 5 RECORDS
+> db.Student.find().skip(2).limit(5)
+{ "_id" : ObjectId("651d1e00585173a7e3f17019"), "id" : 4, "name" : "priya", "marks" : 70, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }
+{ "_id" : ObjectId("651d1e27585173a7e3f1701a"), "id" : 5, "name" : "jiya", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1e78585173a7e3f1701c"), "id" : 7, "name" : "ashith", "marks" : 90, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-17" }
+{ "_id" : ObjectId("651d1e93585173a7e3f1701d"), "id" : 8, "name" : "atharva", "marks" : 38, "status" : "P", "address" : "Nashik-Road", "DOA" : "2021-12-15" }
+{ "_id" : ObjectId("651d1eb1585173a7e3f1701e"), "id" : 9, "name" : "laksh", "marks" : 80, "status" : "P", "address" : "Mumbai", "DOA" : "2021-12-19" }

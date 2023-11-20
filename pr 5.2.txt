@@ -1,0 +1,3 @@
+create table areas(rad int,circle float);
+
+select *from areas;

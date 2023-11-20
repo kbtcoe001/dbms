@@ -1,0 +1,56 @@
+SQL> insert into students_marks values(1,'Abhay',1000);
+
+1 row created.
+SQL> insert into students_marks values(2,'Jayesh',999);
+
+1 row created.
+
+SQL> insert into students_marks values(3,'Soham',990);
+
+1 row created.
+
+SQL> insert into students_marks values(4,'Jonny',300);
+
+1 row created.
+
+SQL> insert into students_marks values(5,'om',800);
+
+1 row created.
+
+SQL> select *from students_marks;
+
+    ROLLNO NAME 	   TOTAL
+---------- ---------- ----------
+	 1 Abhay	    1000
+	 2 Jayesh	     999
+	 3 Soham	     990
+	 4 Jonny	     300
+	 5 om		     800
+
+
+SQL>  create table result_table(Roll int,names varchar(20),class varchar(20));
+
+Table created.
+SQL> set serveroutput on;
+SQL> @storedprocedure.sql
+Enter value for roll_no: 1
+old   2: rno students_marks.Rollno%type:=&Roll_No;
+new   2: rno students_marks.Rollno%type:=1;
+You have a DISTINCTION
+
+PL/SQL procedure successfully completed.
+
+SQL> @storedprocedure.sql
+Enter value for roll_no: 5
+old   2: rno students_marks.Rollno%type:=&Roll_No;
+new   2: rno students_marks.Rollno%type:=5;
+You are Pass
+
+PL/SQL procedure successfully completed.
+
+SQL> select *from result_table;
+
+      ROLL NAMES		CLASS
+---------- -------------------- --------------------
+	 1 Abhay		Distinction
+	 5 om			Pass

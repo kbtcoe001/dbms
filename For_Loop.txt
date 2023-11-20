@@ -1,0 +1,17 @@
+Declare 
+	cursor c1 is select * from OSTU1;
+Begin 
+
+	for i in  c1
+	loop
+	EXIT WHEN c1%NOTFOUND;
+	insert into NSTU1 values(i.Rollno,i.Name,i.per);
+	End loop;
+
+
+exception
+	WHEN no_data_found THEN
+	dbms_output.put_line('No Data Found in table');
+
+end;
+/

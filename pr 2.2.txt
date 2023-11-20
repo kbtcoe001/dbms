@@ -1,0 +1,428 @@
+
+
+
+
+
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sun Oct 8 23:26:14 2017
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+Enter password: 
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+SQL> create table Country(c_ID int, c_Name varchar(20));
+
+Table created.
+
+SQL> insert into Country values(23,'Thailand');
+
+1 row created.
+
+SQL> insert into Country values(53,'India');
+
+1 row created.
+
+SQL> insert into Country values(31,'Germany');
+
+1 row created.
+
+SQL> insert into Country values(45,'HongKong');
+
+1 row created.
+
+SQL> insert into Country values(20,'France');
+
+1 row created.
+
+SQL> insert into Country values(11,'Australia');
+
+1 row created.
+
+SQL> insert into Country values(31,'Bahrain');
+
+1 row created.
+
+SQL> insert into Country values(22,'Canada');
+
+1 row created.
+
+SQL> insert into Country values(19,'Bangladesh');
+
+1 row created.
+
+SQL> insert into Country values(73,'China');
+
+1 row created.
+
+SQL> select * from Country;
+
+      C_ID C_NAME
+---------- --------------------
+	23 Thailand
+	53 India
+	31 Germany
+	45 HongKong
+	 2 France
+	11 Australia
+	31 Bahrain
+	22 Canada
+	19 Bangladesh
+	73 China
+
+10 rows selected.
+
+SQL> create table Product1(p_ID varchar(10),p_Name varchar(20),p_Price int, p_Quantity int);
+
+Table created.
+
+SQL> insert into Product1 values('p10','Electric_Iron',36000,7);
+
+1 row created.
+
+SQL> insert into Product1 values('p30','TV',68000,4);
+
+1 row created.
+
+SQL> insert into Product1 values('p19','Laptop',12000,5);
+
+1 row created.
+
+SQL> insert into Product1 values('p21','Refrigerator',15000,9);
+
+1 row created.
+
+SQL> insert into Product1 values('p09','Iron',3000,6);
+
+1 row created.
+
+SQL> insert into Product1 values('p22','AC',31000,10);
+
+1 row created.
+
+SQL> insert into Product1 values('p13','Induction',23000,12);
+
+1 row created.
+
+SQL>  insert into Product1 values('p41','Heater',18000,4);
+
+1 row created.
+
+SQL> select * from Product1;
+
+P_ID	   P_NAME		   P_PRICE P_QUANTITY
+---------- -------------------- ---------- ----------
+p10	   Electric_Iron		     36000	    7
+p30	   TV			     68000	    4
+p19	   Laptop		     12000	    5
+p21	   Refrigerator 	     15000	    9
+p09	   Iron 		      3000	    6
+p22	   AC			     31000	   10
+p13	   Induction		     23000	   12
+p41	   Heater		     18000	    4
+
+8 rows selected.
+
+SQL> create table Employee3(e_ID int,e_Name varchar(20),post varchar(20),salary int)
+  2  ;      
+
+Table created.
+
+SQL> insert into Employee3 values(11,'Davindra_Trivedi','SalesPerson',20000);
+
+1 row created.
+
+SQL> insert into Employee3 values(12,'Amit','Executive',45000);
+
+1 row created.
+
+SQL> insert into Employee3 values(13,'Anamika','SalesPerson',23000);
+
+1 row created.
+
+SQL> insert into Employee3 values(14,'Rahul','Executive',34000);
+
+1 row created.
+
+SQL> insert into Employee3 values(15,'Yadnesh','SalesPerson',27000);
+
+1 row created.
+
+SQL> insert into Employee3 values(16,'Nimish','SalesPerson',22000);
+
+1 row created.
+
+SQL> insert into Employee3 values(17,'Pratik','Executive',48000);
+
+1 row created.
+
+SQL> insert into Employee3 values(18,'Priya','SalesPerson',20000);
+
+1 row created.
+
+SQL> insert into Employee3 values(19,'Sharma','Executive',45000);
+
+1 row created.
+
+SQL> select * from Employee3;
+
+      E_ID E_NAME		POST			 SALARY
+---------- -------------------- -------------------- ----------
+	11 Davindra_Trivedi	SalesPerson		  20000
+	12 Amit		Executive		  45000
+	13 Anamika		SalesPerson		  23000
+	14 Rahul		Executive		  34000
+	15 Yadnesh		SalesPerson		  27000
+	16 Nimish		SalesPerson		  22000
+	17 Pratik		Executive		  48000
+	18 Priya		SalesPerson		  20000
+	19 Sharma		Executive		  45000
+
+9 rows selected.
+
+SQL> create table SalesPerson(e_ID int, executive varchar(15), incentive int);
+
+Table created.
+
+SQL> insert into SalesPerson values(12,'Amit',0);
+
+1 row created.
+
+SQL> insert into SalesPerson values(19,'Sharma',100);
+
+1 row created.
+
+SQL> insert into SalesPerson values(14,'Rahul',0);
+
+1 row created.
+
+SQL> insert into SalesPerson values(17,'Pratik',0);
+
+1 row created.
+
+SQL> select * from SalesPerson;
+
+      E_ID EXECUTIVE	    INCENTIVE
+---------- --------------- ----------
+	12 Amit		    0
+	19 Sharma		  100
+	14 Rahul		    0
+	17 Pratik		    0
+
+SQL> create table Sales(c_ID int,cust_Name varchar(20),p_ID varchar(10),e_ID int,order_Date date);
+
+Table created.
+
+SQL> insert into Sales values(31,'Swapnil','p09',11,'12-03-2013');
+
+1 row created.
+
+SQL> insert into Sales values(20,'Tanmay','p41',13,'23-09-2013');
+
+1 row created.
+
+SQL> insert into Sales values(31,'Anish','p19',18,'10-06-2013');
+
+1 row created.
+
+SQL> insert into Sales values(23,'Bhavesh','p30',15,'01-09-2013');
+
+1 row created.
+
+SQL> insert into Sales values(73,'Chetan','p21',16,'15-08-2013');
+
+1 row created.
+
+SQL> select * from Sales;
+
+      C_ID CUST_NAME		P_ID		 E_ID ORDER_DA
+---------- -------------------- ---------- ---------- --------
+	31 Swapnil		p09		   11 12-03-13
+	 2 Tanmay		p41		   13 23-09-13
+	31 Anish		p19		   18 10-06-13
+	23 Bhavesh		p30		   15 01-09-13
+	73 Chetan		p21		   16 15-08-13
+
+
+/* 1.Display all employe names. */
+
+SQL> select e_Name from Employee3;
+
+E_NAME
+--------------------
+Davindra_Trivedi
+Amit
+Anamika
+Rahul
+Yadnesh
+Nimish
+Pratik
+Priya
+Sharma
+
+9 rows selected.
+
+/* 2.Display all employee names Starting with 'P' */
+
+SQL> select * from Employee3 WHERE e_Name LIKE 'P%';
+
+      E_ID E_NAME		POST			 SALARY
+---------- -------------------- -------------------- ----------
+	15 Yadnesh		SalesPerson		  27000
+	17 Pratik		Executive		  48000
+	18 Priya		SalesPerson		  20000
+
+/*3.Display the employees having Salary>20000. */
+
+SQL> select * from Employee3 WHERE salary>20000;
+
+      E_ID E_NAME		POST			 SALARY
+---------- -------------------- -------------------- ----------
+	12 Amit		Executive		  45000
+	13 Anamika		SalesPerson		  23000
+	14 Rahul		Executive		  34000
+	15 Yadnesh		SalesPerson		  27000
+	16 Nimish		SalesPerson		  22000
+	17 Pratik		Executive		  48000
+	19 Sharma		Executive		  45000
+
+7 rows selected.
+
+/* 4.Display all Product Details. */
+
+SQL> select * from Product1;
+
+P_ID	   P_NAME		   P_PRICE P_QUANTITY
+---------- -------------------- ---------- ----------
+p10	   Electric_Iron		     36000	    7
+p30	   TV			     68000	    4
+p19	   Laptop		     12000	    5
+p21	   Refrigerator 	     15000	    9
+p09	   Iron 		      3000	    6
+p22	   AC			     31000	   10
+p13	   Induction		     23000	   12
+p41	   Heater		     18000	    4
+
+8 rows selected.
+
+/* 5.Display the orders placed between May to Aug 2013. */
+
+SQL> select * from Sales WHERE Order_Date BETWEEN '01-05-2013' AND '31-08-2013';
+
+      C_ID CUST_NAME		P_ID		 E_ID ORDER_DA
+---------- -------------------- ---------- ---------- --------
+	31 Anish		p19		   18 10-06-13
+	73 Chetan		p21		   16 15-08-13
+
+/* 6.Display the SalesPerson who received an incentive in this month. */ 
+
+SQL> insert into Sales values(22,'Piyush','p19',11,'14-07-2013');        
+
+1 row created.
+
+SQL> select * from Sales;
+
+      C_ID CUST_NAME		P_ID		 E_ID ORDER_DA
+---------- -------------------- ---------- ---------- --------
+	31 Swapnil		p09		   11 12-03-13
+	 2 Tanmay		p41		   13 23-09-13
+	31 Anish		p19		   18 10-06-13
+	23 Bhavesh		p30		   15 01-09-13
+	73 Chetan		p21		   16 15-08-13
+	22 Piyush		p19		   11 14-07-13
+
+6 rows selected.
+
+SQL> select * from SalesPerson where incentive=100;
+
+      E_ID EXECUTIVE	    INCENTIVE
+---------- --------------- ----------
+	19 Sharma		  100
+
+/*7. Display the products sold by Davindra Trivedi. */
+
+SQL> select Employee3.e_ID,e_Name,p_ID,Order_Date From Employee3,Sales
+  2  where Employee3.e_ID = Sales.e_ID AND e_Name='Davindra_Trivedi';
+
+      E_ID E_NAME		P_ID	   ORDER_DA
+---------- -------------------- ---------- --------
+	11 Davindra_Trivedi	p09	   12-03-13
+	11 Davindra_Trivedi	p19	   14-07-13
+
+/* 8.Display how many person sold a Electric_Iron. */
+
+SQL> select p_Name,Employee3.e_ID,e_Name,Order_Date from Product1,Sales,Employee3
+  2  where Product1.p_ID = Sales.p_ID AND
+  3  Employee3.e_ID = Sales.e_ID AND p_Name='Electric_Iron';
+
+no rows selected
+
+SQL> insert into Sales values(20,'Nilam','p10',13,'09-08-2013');
+
+1 row created.
+
+SQL>  select p_Name,Employee3.e_ID,e_Name,Order_Date from Product1,Sales,Employee3 where Product1.p_ID = Sales.p_ID AND Employee3.e_ID = Sales.e_ID AND p_Name='Electric_Iron';
+
+P_NAME			   E_ID E_NAME		     ORDER_DA
+-------------------- ---------- -------------------- --------
+Electric_Iron			     13 Anamika 	     09-08-13
+
+/* 9.Display orderwise employee details. */
+
+SQL> select * from Employee3 ORDER BY e_Name,Post;
+
+      E_ID E_NAME		POST			 SALARY
+---------- -------------------- -------------------- ----------
+	13 Anamika		SalesPerson		  23000
+	11 Davindra_Trivedi	SalesPerson		  20000
+	16 Nimish		SalesPerson		  22000
+	15 Yadnesh		SalesPerson		  27000
+	17 Pratik		Executive		  48000
+	18 Priya		SalesPerson		  20000
+	14 Rahul		Executive		  34000
+	12 Amit		Executive		  45000
+	19 Sharma		Executive		  45000
+
+9 rows selected.
+
+/* 10.display the employees who are Executive. */
+
+SQL> select * from Employee3 where Post='Executive';
+
+      E_ID E_NAME		POST			 SALARY
+---------- -------------------- -------------------- ----------
+	12 Amit		Executive		  45000
+	14 Rahul		Executive		  34000
+	17 Pratik		Executive		  48000
+	19 Sharma		Executive		  45000
+
+/* 11.Display the order placed by Germany. */
+
+SQL>  select Sales.c_ID,cust_Name,p_ID,e_ID,Order_Date from Country,Sales 
+  2  WHERE Country.c_ID = Sales.c_ID AND c_Name='Germany';
+
+      C_ID CUST_NAME		P_ID		 E_ID ORDER_DA
+---------- -------------------- ---------- ---------- --------
+	31 Swapnil		p09		   11 12-03-13
+	31 Anish		p19		   18 10-06-13
+
+/*  13.Dsiplay who are working under Sharma. */
+
+SQL> select e_Name from Employee3,SalesPerson WHERE Employee3.e_ID = SalesPerson.e_ID AND Executive='Sharma';
+
+E_NAME
+--------------------
+Sharma
+
+/* 14.Display all orders placed by Tanmay. */
+
+SQL> select c_ID,cust_Name,Sales.p_ID,e_ID,Order_Date from Sales,Product1
+  2  where Sales.p_ID = Product1.p_ID AND cust_Name='Tanmay';
+
+      C_ID CUST_NAME		P_ID		 E_ID ORDER_DA
+---------- -------------------- ---------- ---------- --------
+	 2 Tanmay		p41		   13 23-09-13
+
+

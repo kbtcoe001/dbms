@@ -1,0 +1,23 @@
+Declare 
+	rno int;
+	n1 varchar(10);
+	p1 int;
+	cursor c1 is select * from OSTU1;
+Begin 
+
+	open c1;
+
+	loop
+	fetch c1 into rno,n1,p1;
+	EXIT WHEN c1%NOTFOUND;
+	insert into NSTU1 values(rno,n1,p1);
+	End loop;
+
+	close c1;
+
+exception
+	WHEN no_data_found THEN
+	dbms_output.put_line('No Data Found in table');
+
+end;
+/

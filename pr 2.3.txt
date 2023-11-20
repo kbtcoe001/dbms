@@ -1,0 +1,407 @@
+
+
+
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+SQL> create table employee1(Emp_ID int, Emp_Name varchar(20), Joining_Date Date, Salary int);
+
+Table created.
+
+SQL> insert into employee1 values(104,'Manisha','23-08-2013',8000);
+
+1 row created.
+
+SQL> insert into employee1 values(107,'Sayali','11-01-2013',30000);
+
+1 row created.
+
+SQL> insert into employee1 values(103,'Parth','21-04-2015','23000');
+
+1 row created.
+
+SQL> insert into employee1 values(106,'Manoj','01-01-2013',34000);
+
+1 row created.
+
+SQL> insert into employee1 values(114,'Kishan','18-06-2013',18000);
+
+1 row created.
+
+SQL> insert into employee1 values(116,'Aryan','11-08-2014',15000);
+
+1 row created.
+
+SQL> select * from employee1;
+
+    EMP_ID EMP_NAME		JOINING_     SALARY
+---------- -------------------- -------- ----------
+       104 Manisha		23-08-13       8000
+       107 Sayali		11-01-13      30000
+       103 Parth		21-04-15      23000
+       106 Manoj		01-01-13      34000
+       114 Kishan		18-06-13      18000
+       116 Aryan		11-08-14      15000
+
+6 rows selected.
+
+/* 1: Insert 5 tuples in employee1. */
+
+SQL> insert into employee1 values(109,'Payal','17-05-2015',12000); 
+
+1 row created.
+
+SQL> insert into employee1 values(103,'Swati','12-03-2013',10000);
+
+1 row created.
+
+SQL> insert into employee1 values(102,'Yash','19-05-2015',40000);
+
+1 row created.
+
+SQL> insert into employee1 values(113,'Rahul','30-09-2015',15000);
+
+1 row created.
+
+SQL>  insert into employee1 values(101,'Manasi','09-10-2014',20000);
+
+1 row created.
+
+/* 2: Display the data from the table. */
+
+SQL> select * from employee1;
+
+    EMP_ID EMP_NAME		JOINING_     SALARY
+---------- -------------------- -------- ----------
+       104 Manisha		23-08-13       8000
+       107 Sayali		11-01-13      30000
+       103 Parth		21-04-15      23000
+       106 Manoj		01-01-13      34000
+       114 Kishan		18-06-13      18000
+       116 Aryan		11-08-14      15000
+       109 Payal		17-05-15      12000
+       103 Swati		12-03-13      10000
+       102 Yash 		19-05-15      40000
+       113 Rahul		30-09-15      15000
+       101 Manasi		09-10-14      20000
+
+11 rows selected.
+
+/* 3: Display employee1 details having salary>30000. */
+
+SQL>  select * from employee1 WHERE Salary>30000;
+
+    EMP_ID EMP_NAME		JOINING_     SALARY
+---------- -------------------- -------- ----------
+       106 Manoj		01-01-13      34000
+       102 Yash 		19-05-15      40000
+
+/* 4: Display records of employee1 having name ‘Swati’. */
+
+SQL> select * from employee1 WHERE Emp_Name='Swati';
+
+    EMP_ID EMP_NAME		JOINING_     SALARY
+---------- -------------------- -------- ----------
+       103 Swati		12-03-13      10000
+
+/* 5: Display salary of employee1 without duplicate values. */
+
+SQL> select DISTINCT salary from employee1;
+
+    SALARY
+----------
+     12000
+     10000
+     30000
+     23000
+     18000
+     15000
+     40000
+      8000
+     20000
+     34000
+
+10 rows selected.
+
+/* 6: Display employee1 data in ascending order of their salary. */
+
+SQL> select * from employee1 ORDER BY Salary;
+
+    EMP_ID EMP_NAME		JOINING_     SALARY
+---------- -------------------- -------- ----------
+       104 Manisha		23-08-13       8000
+       103 Swati		12-03-13      10000
+       109 Payal		17-05-15      12000
+       116 Aryan		11-08-14      15000
+       113 Rahul		30-09-15      15000
+       114 Kishan		18-06-13      18000
+       101 Manasi		09-10-14      20000
+       103 Parth		21-04-15      23000
+       107 Sayali		11-01-13      30000
+       106 Manoj		01-01-13      34000
+       102 Yash 		19-05-15      40000
+
+11 rows selected.
+
+/* 7: Display employee1 data in descending order of their salary. */
+
+SQL> select * from employee1 ORDER BY Joining_Date DESC;
+
+    EMP_ID EMP_NAME		JOINING_     SALARY
+---------- -------------------- -------- ----------
+       113 Rahul		30-09-15      15000
+       102 Yash 		19-05-15      40000
+       109 Payal		17-05-15      12000
+       103 Parth		21-04-15      23000
+       101 Manasi		09-10-14      20000
+       116 Aryan		11-08-14      15000
+       104 Manisha		23-08-13       8000
+       114 Kishan		18-06-13      18000
+       103 Swati		12-03-13      10000
+       107 Sayali		11-01-13      30000
+       106 Manoj		01-01-13      34000
+
+11 rows selected.
+
+/* 8. Update Salary equals to 50000 of employee1_No. 104. */
+
+SQL> UPDATE employee1 SET Salary=50000 WHERE Emp_ID=106;
+
+1 row updated.
+
+SQL> select * from employee1;
+
+    EMP_ID EMP_NAME		JOINING_     SALARY
+---------- -------------------- -------- ----------
+       104 Manisha		23-08-13       8000
+       107 Sayali		11-01-13      30000
+       103 Parth		21-04-15      23000
+       106 Manoj		01-01-13      50000
+       114 Kishan		18-06-13      18000
+       116 Aryan		11-08-14      15000
+       109 Payal		17-05-15      12000
+       103 Swati		12-03-13      10000
+       102 Yash 		19-05-15      40000
+       113 Rahul		30-09-15      15000
+       101 Manasi		09-10-14      20000
+
+11 rows selected.
+
+/* 9. Delete record 103 from table. */
+
+SQL> DELETE from employee1 WHERE Emp_ID=107;    
+
+1 row deleted.
+
+SQL> select * from employee1;
+
+    EMP_ID EMP_NAME		JOINING_     SALARY
+---------- -------------------- -------- ----------
+       104 Manisha		23-08-13       8000
+       103 Parth		21-04-15      23000
+       106 Manoj		01-01-13      50000
+       114 Kishan		18-06-13      18000
+       116 Aryan		11-08-14      15000
+       109 Payal		17-05-15      12000
+       103 Swati		12-03-13      10000
+       102 Yash 		19-05-15      40000
+       113 Rahul		30-09-15      15000
+       101 Manasi		09-10-14      20000
+
+10 rows selected.
+
+/* 10.Display salary between 10000 and 20000. */
+
+SQL> select * from employee1 WHERE Salary BETWEEN 10000 AND 20000;
+
+    EMP_ID EMP_NAME		JOINING_     SALARY
+---------- -------------------- -------- ----------
+       114 Kishan		18-06-13      18000
+       116 Aryan		11-08-14      15000
+       109 Payal		17-05-15      12000
+       103 Swati		12-03-13      10000
+       113 Rahul		30-09-15      15000
+       101 Manasi		09-10-14      20000
+
+6 rows selected.
+
+/* 11.Display record of employee1s whose salary is 8000 AND 30000. */
+
+SQL> select * from employee1 WHERE Salary IN (8000,30000);
+
+    EMP_ID EMP_NAME		JOINING_     SALARY
+---------- -------------------- -------- ----------
+       104 Manisha		23-08-13       8000
+
+/* 12.Display record of employee1 eho joined in 2013. */
+
+SQL> select * from employee1 WHERE Joining_Date BETWEEN '01-01-2013' AND '31-12-2013';
+
+    EMP_ID EMP_NAME		JOINING_     SALARY
+---------- -------------------- -------- ----------
+       104 Manisha		23-08-13       8000
+       106 Manoj		01-01-13      50000
+       114 Kishan		18-06-13      18000
+       103 Swati		12-03-13      10000
+
+/* 13.Find maximum and minimum salary. */
+
+SQL> select Emp_Name, Salary FROM employee1 WHERE Salary IN (SELECT MAX(Salary) FROM employee1);
+
+EMP_NAME		 SALARY
+-------------------- ----------
+Manoj			  50000
+
+SQL> select Emp_Name,Salary FROM employee1 WHERE Salary IN (SELECT MIN(Salary) FROM employee1);
+
+EMP_NAME		 SALARY
+-------------------- ----------
+Manisha 		   8000
+
+/* 14.Display count of employee1s who did not join in 2015. */
+
+SQL> select COUNT(*) AS "Not Joined in 2015" FROM employee1 WHERE Joining_Date NOT BETWEEN '01-01-2015' AND '31-12-2015';
+
+Not Joined in 2015
+------------------
+		 6
+
+/* 15.Display Total Salary. */
+
+SQL> select SUM(Salary) AS "Total Salary" FROM employee1;
+
+Total Salary
+------------
+      211000
+
+
+/* 16.Convert employee1 names to Lower and Upper Case. */
+
+SQL> select LOWER(Emp_Name) FROM employee1;
+
+LOWER(EMP_NAME)
+--------------------
+manisha
+parth
+manoj
+kishan
+aryan
+payal
+swati
+yash
+rahul
+manasi
+
+10 rows selected.
+
+SQL> select UPPER (Emp_Name) FROM employee1;
+
+UPPER(EMP_NAME)
+--------------------
+MANISHA
+PARTH
+MANOJ
+KISHAN
+ARYAN
+PAYAL
+SWATI
+YASH
+RAHUL
+MANASI
+
+10 rows selected.
+
+*******************************************************************************************************************
+
+SQL> create table productDetails(p_ID int, p_Name varchar(20),quantity int,price int);
+
+Table created.
+
+SQL> insert into productDetails values(01,'Desk',30,3000);
+
+1 row created.
+
+SQL> insert into productDetails values(02,'ShowPeice',15,2100);
+
+1 row created.
+
+SQL>  insert into productDetails values(03,'Fan',5,1500);
+
+1 row created.
+
+SQL> insert into productDetails values(04,'HardDisk',02,4500);
+
+1 row created.
+
+SQL>  insert into productDetails values(05,'Bottles',25,400);
+
+1 row created.
+
+SQL> select * from productDetails;
+
+      P_ID P_NAME		  QUANTITY	PRICE
+---------- -------------------- ---------- ----------
+	 1 Desk 			30	 3000
+	 2 ShowPeice			15	 2100
+	 3 Fan				 5	 1500
+	 4 HardDisk			 2	 4500
+	 5 Bottles			25	  400
+
+SQL> create table saleDetails(s_no int,p_ID int, quantity int, price int, cust_no varchar(10));
+
+Table created.
+
+SQL> insert into saleDetails values(50,02,10,1250,'c121');
+
+1 row created.
+
+SQL> insert into saleDetails values(65,01,25,2600,'c132');
+
+1 row created.
+
+SQL> insert into saleDetails values(71,03,4,1200,'c213');
+
+1 row created.
+
+SQL>  select * from saleDetails;
+
+      S_NO	 P_ID	QUANTITY      PRICE CUST_NO
+---------- ---------- ---------- ---------- ----------
+	50	    2	      10       1250 c121
+	65	    1	      25       2600 c132
+	71	    3	       4       1200 c213
+
+
+/* 1.To Retrieve all IDs of all Products even if they were sell or present in the storage room. */
+
+SQL> select p_ID from productDetails UNION select p_ID from saleDetails;
+
+      P_ID
+----------
+	 1
+	 2
+	 3
+	 4
+	 5
+
+/* 2.To Retrieve all IDs of all Sold Products. */
+
+SQL> select p_ID from saleDetails;
+
+      P_ID
+----------
+	 2
+	 1
+	 3
+/* 3.Minus the rows which are present in first query but absent in second with no Duplicates. */
+
+SQL> select p_ID from productDetails MINUS select p_ID from saleDetails;
+
+      P_ID
+----------
+	 4
+	 5
+
+

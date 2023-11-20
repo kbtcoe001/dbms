@@ -1,0 +1,50 @@
+Declare 
+rno students_marks.Rollno%type:=&Roll_No;
+category varchar(20);
+marks int;
+name1 varchar(20);
+e exception;
+e1 exception;
+
+Begin
+if((rno<0)) then raise e;
+end if;
+
+Select total into marks from students_marks where Rollno=rno;
+
+if((marks<0)) then raise e1;
+end if;
+
+
+Select name into name1 from students_marks where Rollno=rno;
+
+if(marks<=1500 and marks>=990) then dbms_output.put_line('You have a DISTINCTION');
+category:='Distinction';
+
+elsif(marks<=989 and marks>=900) then dbms_output.put_line('You have a First Class');
+category:='First Class';
+
+elsif(marks<=899 and marks>=825) then dbms_output.put_line('You have a Second  Class');
+category:='Second Class';
+
+elsif(marks<=824 and marks>=400) then dbms_output.put_line('You are Pass');
+category:='Pass';
+
+else category:='Failed';
+dbms_output.put_line('You are Failed');
+
+end if;
+
+insert into result_table values(rno,name1,category);
+
+Exception
+when no_data_found then
+dbms_output.put_line('Record Not found');
+
+when e then 
+dbms_output.put_line('Enter Positive roll no');
+
+when e1 then 
+dbms_output.put_line('Marks Are Negative');
+End;
+/

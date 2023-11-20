@@ -1,0 +1,17 @@
+DECLARE
+    radius INT;
+    area FLOAT;
+BEGIN
+    FOR radius IN 5..9 LOOP
+        area := 3.14159 * radius * radius;
+
+        INSERT INTO areas VALUES (radius, area);
+    	DBMS_OUTPUT.PUT_LINE('Radius: ' || radius || 'Area: ' || area);
+
+        
+        COMMIT;
+    END LOOP;
+    
+    DBMS_OUTPUT.PUT_LINE('Areas calculated and stored in the areas table.');
+END;
+/

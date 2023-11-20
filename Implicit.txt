@@ -1,0 +1,16 @@
+Declare 
+	rno OSTU1.Rollno%type:=&Rno;
+	n1 varchar(10);
+	p1 int;
+
+Begin 
+
+	select Rollno, Name, per into rno,n1,p1 from OSTU1 where Rollno=rno;
+	insert into NSTU1 values(rno,n1,p1);
+
+exception
+	WHEN no_data_found THEN
+	dbms_output.put_line('No Data Found in table');
+
+end;
+/

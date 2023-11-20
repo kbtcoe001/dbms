@@ -1,0 +1,119 @@
+Queries Questions:
+
+Implement Map reduces operation with suitable example using MongoDB
+
++-------+----------------+-------------+----------+------+------------+--------+-------+----------------+-------------+----------+------+------------+--------+
+Queries Answers:
+
+
+> db.createCollection('data')
+{ "ok" : 1 }
+
+
+> db.data.insert({id:1,name:'Jiya',marks:80})
+WriteResult({ "nInserted" : 1 })
+> db.data.insert({id:2,name:'Jiya',marks:70})
+WriteResult({ "nInserted" : 1 })
+> db.data.insert({id:3,name:'priya',marks:90})
+WriteResult({ "nInserted" : 1 })
+> db.data.insert({id:4,name:'pooja',marks:80})
+WriteResult({ "nInserted" : 1 })
+> db.data.insert({id:5,name:'priya',marks:60})
+WriteResult({ "nInserted" : 1 })
+> db.data.insert({id:6,name:'riya',marks:80})
+WriteResult({ "nInserted" : 1 })
+> db.data.insert({id:7,name:'pooja',marks:60})
+WriteResult({ "nInserted" : 1 })
+> db.data.insert({id:8,name:'ashith',marks:95})
+WriteResult({ "nInserted" : 1 })
+> db.data.insert({id:9,name:'riya',marks:60})
+WriteResult({ "nInserted" : 1 })
+> db.data.insert({id:10,name:'pooja',marks:50})
+WriteResult({ "nInserted" : 1 })
+> db.data.insert({id:11,name:'ashith',marks:70})
+WriteResult({ "nInserted" : 1 })
+> db.data.insert({id:12,name:'amit',marks:60})
+WriteResult({ "nInserted" : 1 })
+> db.data.insert({id:13,name:'ajay',marks:60})
+WriteResult({ "nInserted" : 1 })
+> db.data.insert({id:14,name:'ajay',marks:70})
+WriteResult({ "nInserted" : 1 })
+> db.data.insert({id:15,name:'jay',marks:80})
+WriteResult({ "nInserted" : 1 })
+
+
+> db.data.find()
+{ "_id" : ObjectId("652f8e96fbb33edafa206917"), "id" : 1, "name" : "Jiya", "marks" : 80 }
+{ "_id" : ObjectId("652f8ea6fbb33edafa206918"), "id" : 2, "name" : "Jiya", "marks" : 70 }
+{ "_id" : ObjectId("652f8ec4fbb33edafa206919"), "id" : 3, "name" : "priya", "marks" : 90 }
+{ "_id" : ObjectId("652f8ee2fbb33edafa20691a"), "id" : 4, "name" : "pooja", "marks" : 80 }
+{ "_id" : ObjectId("652f8f3efbb33edafa20691b"), "id" : 5, "name" : "priya", "marks" : 60 }
+{ "_id" : ObjectId("652f8f52fbb33edafa20691c"), "id" : 6, "name" : "riya", "marks" : 80 }
+{ "_id" : ObjectId("652f8f64fbb33edafa20691d"), "id" : 7, "name" : "pooja", "marks" : 60 }
+{ "_id" : ObjectId("652f8f79fbb33edafa20691e"), "id" : 8, "name" : "ashith", "marks" : 95 }
+{ "_id" : ObjectId("652f8f90fbb33edafa20691f"), "id" : 9, "name" : "riya", "marks" : 60 }
+{ "_id" : ObjectId("652f8fa9fbb33edafa206920"), "id" : 10, "name" : "pooja", "marks" : 50 }
+{ "_id" : ObjectId("652f8fbefbb33edafa206921"), "id" : 11, "name" : "ashith", "marks" : 70 }
+{ "_id" : ObjectId("652f8fd0fbb33edafa206922"), "id" : 12, "name" : "amit", "marks" : 60 }
+{ "_id" : ObjectId("652f900bfbb33edafa206923"), "id" : 13, "name" : "ajay", "marks" : 60 }
+{ "_id" : ObjectId("652f901cfbb33edafa206924"), "id" : 14, "name" : "ajay", "marks" : 70 }
+{ "_id" : ObjectId("652f9032fbb33edafa206925"), "id" : 15, "name" : "jay", "marks" : 80 }
+
+
+> var m1 =function () {emit(this.name,this.marks)}
+> var r1 =function(name,marks){return Array.sum(marks)}
+> db.data.mapReduce(m1,r1,{out:"Total"})
+{ "result" : "Total", "ok" : 1 }
+> db.Total.find()
+{ "_id" : "ajay", "value" : 130 }
+{ "_id" : "priya", "value" : 150 }
+{ "_id" : "riya", "value" : 140 }
+{ "_id" : "Jiya", "value" : 150 }
+{ "_id" : "amit", "value" : 60 }
+{ "_id" : "pooja", "value" : 190 }
+{ "_id" : "ashith", "value" : 165 }
+{ "_id" : "jay", "value" : 80 }
+
+
+> var m1 =function () {emit(this.name,this.marks)}
+> var r1 =function(name,marks){return Array.avg(marks)}
+> db.data.mapReduce(m1,r1,{out:"Average"})
+{ "result" : "Average", "ok" : 1 }
+> db.Average.find()
+{ "_id" : "ajay", "value" : 65 }
+{ "_id" : "priya", "value" : 75 }
+{ "_id" : "riya", "value" : 70 }
+{ "_id" : "Jiya", "value" : 75 }
+{ "_id" : "amit", "value" : 60 }
+{ "_id" : "pooja", "value" : 63.333333333333336 }
+{ "_id" : "ashith", "value" : 82.5 }
+{ "_id" : "jay", "value" : 80 }
+>
+
+
+> var m3 =function () {if(this.marks>60) emit(this.name,"Pass")}
+> var r3 =function(name,marks){return Array.sum(marks)}
+> db.data.mapReduce(m3, r3, {out : "total2"})
+{ "result" : "total2", "ok" : 1 }
+> db.total2.find()
+{ "_id" : "Jiya", "value" : "PassPass" }
+{ "_id" : "ashith", "value" : "PassPass" }
+{ "_id" : "riya", "value" : "Pass" }
+{ "_id" : "ajay", "value" : "Pass" }
+{ "_id" : "jay", "value" : "Pass" }
+{ "_id" : "priya", "value" : "Pass" }
+{ "_id" : "pooja", "value" : "Pass" }
+
+
+> var m4 =function () {emit(this.name,this.marks)}
+> var r4 =function(name,marks){return Array.sum(marks)}
+> db.data.mapReduce(m4, r4, {query:{marks:{$gt:70}},out : "total3"})
+{ "result" : "total3", "ok" : 1 }
+> db.total3.find()
+{ "_id" : "priya", "value" : 90 }
+{ "_id" : "riya", "value" : 80 }
+{ "_id" : "Jiya", "value" : 80 }
+{ "_id" : "jay", "value" : 80 }
+{ "_id" : "ashith", "value" : 95 }
+{ "_id" : "pooja", "value" : 80 }
+
